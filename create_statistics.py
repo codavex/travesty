@@ -3,10 +3,9 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument( "keySize",
-                     help="size of textual key",
-                     type=int,
-                     choices=[1, 2, 3, 4] )
+parser.add_argument(
+    "keySize", help="size of textual key", type=int, choices=[1, 2, 3, 4]
+)
 parser.add_argument("file", help="file to use as source")
 args = parser.parse_args()
 
