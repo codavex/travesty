@@ -13,12 +13,23 @@ file = open(args.file, "r")
 
 key = file.read(args.keySize)
 
+stats = {}
+
 while 1:
     char = file.read(1)
     if not char:
         break
 
-    print("{0} {1}".format(key, char))
+    if key in stats:
+        if char in stats[key]:
+            stats[key][char] += 1
+        else:
+            stats[key][char] = 1
+    else:
+        stats[key] = {}
+        stats[key][char] = 1
+
     key = key[1:] + char
 
+print(stats)
 file.close()
