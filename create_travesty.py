@@ -8,19 +8,21 @@ parser.add_argument("textLength", help="length of text to generate", type=int)
 parser.add_argument("file", help="file to use as source")
 args = parser.parse_args()
 
-travesty_file = open(args.file, "r")
-travesty_text = travesty_file.read()
-travesty_file.close()
+# read in statistics
+travestyFile = open(args.file, "r")
+travestyText = travestyFile.read()
+travestyFile.close()
 
-travesty_dict = eval(travesty_text)
+travestyDict = eval(travestyText)
 
-key = random.choice(list(travesty_dict.keys()))
+# get 'seed' text to start the generated string
+key = random.choice(list(travestyDict.keys()))
 
+# end option to stop newline on print
 print(key, end="")
 
-i = 0
-while i < args.textLength:
-    char = random.choice(list(travesty_dict[key].keys()))
+# pick character at random, print, then update key
+for i in range(args.textLength):
+    char = random.choice(list(travestyDict[key].keys()))
     print(char, end="")
     key = key[1:] + char
-    i += 1
