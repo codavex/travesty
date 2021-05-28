@@ -11,6 +11,7 @@ args = parser.parse_args()
 
 file = open(args.file, "r")
 
+# read in first keySize bytes
 key = file.read(args.keySize)
 
 stats = {}
@@ -20,6 +21,7 @@ while 1:
     if not char:
         break
 
+    # update dictionary with char
     if key in stats:
         if char in stats[key]:
             stats[key][char] += 1
@@ -29,7 +31,8 @@ while 1:
         stats[key] = {}
         stats[key][char] = 1
 
+    # update key
     key = key[1:] + char
 
-print(stats)
 file.close()
+print(stats)
