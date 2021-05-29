@@ -9,20 +9,24 @@ parser.add_argument("file", help="file to use as source")
 args = parser.parse_args()
 
 # read in statistics
-travestyFile = open(args.file, "r")
-travestyText = travestyFile.read()
-travestyFile.close()
+statisticsFile = open(args.file, "r")
+statisticsText = statisticsFile.read()
+statisticsFile.close()
 
-travestyDict = eval(travestyText)
+statisticsDict = eval(statisticsText)
 
 # get 'seed' text to start the generated string
-key = random.choice(list(travestyDict.keys()))
+key = random.choice(list(statisticsDict.keys()))
 
 # end option to stop newline on print
 print(key, end="")
 
 # pick character at random, print, then update key
 for i in range(args.textLength):
-    char = random.choice(list(travestyDict[key].keys()))
+    char = random.choice(list(statisticsDict[key].keys()))
     print(char, end="")
     key = key[1:] + char
+    if key not in statisticsDict:
+        # on off-chance the key doesn't exist, select a new one
+        # (eg last key size string of source text is unique)
+        key = random.choice(list(statisticsDict.keys()))
