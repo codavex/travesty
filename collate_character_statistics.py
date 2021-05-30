@@ -4,7 +4,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "keySize", help="size of textual key", type=int, choices=[1, 2, 3, 4]
+    "keySize", help="size of textual key", type=int, choices=[1, 2, 3, 4, 5]
 )
 parser.add_argument("file", help="file to use as source")
 args = parser.parse_args()
@@ -35,4 +35,15 @@ while 1:
     key = key[1:] + char
 
 file.close()
+
+for key in stats:
+    runningTotal = 0
+    for char in stats[key]:
+        runningTotal += stats[key][char]
+    rationalisedTotal = 0
+    for char in stats[key]:
+        percentageValue = stats[key][char] / runningTotal
+        stats[key][char] = percentageValue + rationalisedTotal
+        rationalisedTotal += percentageValue
+
 print(stats)
