@@ -4,15 +4,15 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "keySize", help="size of textual key", type=int, choices=[1, 2, 3, 4, 5]
+    "ngramSize", help="size of textual ngram", type=int, choices=[1, 2, 3, 4, 5]
 )
 parser.add_argument("file", help="file to use as source")
 args = parser.parse_args()
 
 file = open(args.file, "r")
 
-# read in first keySize bytes
-key = file.read(args.keySize)
+# read in first ngram size bytes
+ngram = file.read(args.ngramSize)
 
 stats = {}
 
@@ -22,28 +22,28 @@ while 1:
         break
 
     # update dictionary with char
-    if key in stats:
-        if char in stats[key]:
-            stats[key][char] += 1
+    if ngram in stats:
+        if char in stats[ngram]:
+            stats[ngram][char] += 1
         else:
-            stats[key][char] = 1
+            stats[ngram][char] = 1
     else:
-        stats[key] = {}
-        stats[key][char] = 1
+        stats[ngram] = {}
+        stats[ngram][char] = 1
 
-    # update key
-    key = key[1:] + char
+    # update ngram
+    ngram = ngram[1:] + char
 
 file.close()
 
-for key in stats:
+for ngram in stats:
     runningTotal = 0
-    for char in stats[key]:
-        runningTotal += stats[key][char]
+    for char in stats[ngram]:
+        runningTotal += stats[ngram][char]
     rationalisedTotal = 0
-    for char in stats[key]:
-        percentageValue = stats[key][char] / runningTotal
-        stats[key][char] = percentageValue + rationalisedTotal
+    for char in stats[ngram]:
+        percentageValue = stats[ngram][char] / runningTotal
+        stats[ngram][char] = percentageValue + rationalisedTotal
         rationalisedTotal += percentageValue
 
 print(stats)
