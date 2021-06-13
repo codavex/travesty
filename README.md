@@ -1,4 +1,4 @@
-# travesty /ˈtravɪsti/ (noun) a false, absurd, or distorted representation of something.
+# travesty /ˈtravɪsti/ (noun) - a false, absurd, or distorted representation of something.
 
 This project collects statistics based on source texts.
 
