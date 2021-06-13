@@ -16,24 +16,24 @@ statisticsFile.close()
 statisticsDict = eval(statisticsText)
 
 # get 'seed' text to start the generated string
-key = random.choice(list(statisticsDict.keys()))
+ngram = random.choice(list(statisticsDict.keys()))
 
 # end option to stop newline on print
-print(key, end="")
+print(ngram, end="")
 
-# pick character at random, print, then update key
+# pick character at random, print, then update ngram
 for i in range(args.textLength):
     probability = random.random()
     nextChar = ""
-    for char in statisticsDict[key]:
+    for char in statisticsDict[ngram]:
         nextChar = char
-        if float(statisticsDict[key][char]) < probability:
+        if float(statisticsDict[ngram][char]) < probability:
             break
     print(nextChar, end="")
-    key = key[1:] + nextChar
-    if key not in statisticsDict:
-        # on off-chance the key doesn't exist, select a new one
-        # (eg last key size string of source text is unique)
-        key = random.choice(list(statisticsDict.keys()))
+    ngram = ngram[1:] + nextChar
+    if ngram not in statisticsDict:
+        # on off-chance the ngram doesn't exist, select a new one
+        # (eg last ngram size string of source text is unique)
+        ngram = random.choice(list(statisticsDict.keys()))
 
 print("")
